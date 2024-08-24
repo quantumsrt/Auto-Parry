@@ -7,7 +7,7 @@ local VIM = game:GetService("VirtualInputManager")
 -- Constants
 local TOGGLE_KEY = Enum.KeyCode.Backslash
 local ANIMATION_NAMES = {'Slash', 'Swing', 'slash', 'swing', 'SLash'}
-local BLOCK_RANGE = 16.2
+local BLOCK_RANGE = 12.5  -- Reduced from 16.2
 local BLOCK_DELAY = 0.006
 
 -- Variables
