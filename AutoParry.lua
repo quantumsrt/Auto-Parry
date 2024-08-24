@@ -5,7 +5,7 @@ local UserInputService = game:GetService("UserInputService")
 local VIM = game:GetService("VirtualInputManager")
 
 -- Constants
-local TOGGLE_KEY = Enum.KeyCode.V
+-- local TOGGLE_KEY = Enum.KeyCode.V
 local ANIMATION_NAMES = {'Slash', 'Swing', 'slash', 'swing', 'SLash'}
 local BLOCK_RANGE = 16.2
 local BLOCK_DELAY = 0.006
@@ -85,11 +85,11 @@ local function setupPlayer(player)
 end
 
 -- Event Handlers
-UserInputService.InputBegan:Connect(function(input)
-    if input.KeyCode == TOGGLE_KEY and input.UserInputType == Enum.UserInputType.Keyboard then
-        toggleScript()
-    end
-end)
+--UserInputService.InputBegan:Connect(function(input)
+--    if input.KeyCode == TOGGLE_KEY and input.UserInputType == Enum.UserInputType.Keyboard then
+--        toggleScript()
+--    end
+--end)
 
 Players.PlayerAdded:Connect(setupPlayer)
 
@@ -104,4 +104,4 @@ end
 print("Hey, is the script working?")
 task.wait(0.1)
 print("Script enabled")
-print("Toggle Keybind - V")
+-- print("Toggle Keybind - V")
