@@ -1,9 +1,11 @@
 -- Services
 local Players = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
+local UserInputService = game:GetService("UserInputService")
 local VIM = game:GetService("VirtualInputManager")
 
 -- Constants
+local TOGGLE_KEY = Enum.KeyCode.Backslash
 local ANIMATION_NAMES = {'Slash', 'Swing', 'slash', 'swing', 'SLash'}
 local BLOCK_RANGE = 16.2
 local BLOCK_DELAY = 0.006
@@ -11,6 +13,7 @@ local BLOCK_DELAY = 0.006
 -- Variables
 local localPlayer = Players.LocalPlayer
 local cooldownFrame = localPlayer.PlayerGui.RoactUI.BottomStatusIndicators.FrameContainer.SecondRowFrame.ActionCooldownsFrame.ParryActionCooldown
+local isEnabled = true
 local animationInfo = {}
 
 -- Helper Functions
@@ -25,6 +28,11 @@ local function block()
     VIM:SendKeyEvent(false, Enum.KeyCode.F, false, game)
 end
 
+local function toggleScript()
+    isEnabled = not isEnabled
+    print("Script is now:", isEnabled and "Enabled" or "Disabled")
+end
+
 local function isAnimationBlockable(animName)
     for _, name in ipairs(ANIMATION_NAMES) do
         if animName:match(name) then
@@ -36,6 +44,8 @@ end
 
 -- Main Logic
 local function onAnimationPlayed(player, track)
+    if not isEnabled then return end
+    
     local info = animationInfo[track.Animation.AnimationId]
     if not info then
         info = getProductInfo(tonumber(track.Animation.AnimationId:match("%d+")))
@@ -75,6 +85,12 @@ local function setupPlayer(player)
 end
 
 -- Event Handlers
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == TOGGLE_KEY and input.UserInputType == Enum.UserInputType.Keyboard then
+        toggleScript()
+    end
+end)
+
 Players.PlayerAdded:Connect(setupPlayer)
 
 -- Initial Setup
@@ -85,4 +101,7 @@ for _, player in ipairs(Players:GetPlayers()) do
 end
 
 -- Script Initialization
+print("Hey, is the script working?")
+task.wait(0.1)
 print("Script enabled")
+print("Toggle Keybind - \\")
