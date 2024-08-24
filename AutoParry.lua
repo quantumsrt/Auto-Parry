@@ -1,11 +1,9 @@
 -- Services
 local Players = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
-local UserInputService = game:GetService("UserInputService")
 local VIM = game:GetService("VirtualInputManager")
 
 -- Constants
-local TOGGLE_KEY = Enum.KeyCode.V
 local ANIMATION_NAMES = {'Slash', 'Swing', 'slash', 'swing', 'SLash'}
 local BLOCK_RANGE = 16.2
 local BLOCK_DELAY = 0.006
@@ -26,11 +24,6 @@ local function block()
     VIM:SendKeyEvent(true, Enum.KeyCode.F, false, game)
     task.wait(0.15)
     VIM:SendKeyEvent(false, Enum.KeyCode.F, false, game)
-end
-
-local function toggleScript()
-    isEnabled = not isEnabled
-    print("Script is now:", isEnabled and "Enabled" or "Disabled")
 end
 
 local function isAnimationBlockable(animName)
@@ -85,12 +78,6 @@ local function setupPlayer(player)
 end
 
 -- Event Handlers
-UserInputService.InputBegan:Connect(function(input)
-    if input.KeyCode == TOGGLE_KEY and input.UserInputType == Enum.UserInputType.Keyboard then
-        toggleScript()
-    end
-end)
-
 Players.PlayerAdded:Connect(setupPlayer)
 
 -- Initial Setup
@@ -101,7 +88,4 @@ for _, player in ipairs(Players:GetPlayers()) do
 end
 
 -- Script Initialization
-print("Hey, is the script working?")
-task.wait(0.1)
-print("Script enabled")
-print("Toggle Keybind - V")
+print("Script initialized and running")
